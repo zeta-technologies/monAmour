@@ -15,6 +15,14 @@ io.on("connection", function(socket){
 
   socket.on("stateChanged", function(state){
     console.log("State Changed: " + state);
-    io.emit("updateState", state);
+    if (state == true) {
+      io.emit("On", state);
+      console.log("On state bin/www")
+    }
+    if (state == false) {
+      io.emit("Off", state);
+      console.log("Off state bin/www")
+    }
+    // io.emit("updateState", state);
   });
 });

@@ -55,6 +55,7 @@
     var socket = io.connect('/');
     $("#myonoffswitch").change(function(){
       socket.emit("stateChanged", this.checked);
+      console.log(this.checked);
     });
     </script>
 
