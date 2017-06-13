@@ -94,7 +94,7 @@ socket.on("connect", function(){
                 collection.find({"user.name" : "Simon"}).toArray(function(err, docs) {
                   assert.equal(err, null);
                   console.log("Found the following records");
-                  console.log(docs[0].sessions.session_1.ch1);
+                  console.log(docs[0].sessions.session_1.ch);
                   // callback(docs);
                 });
               db.close();
