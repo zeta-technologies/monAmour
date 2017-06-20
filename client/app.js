@@ -30,24 +30,10 @@ var ch2_array = [];
 var ch3_array = [];
 var ch4_array = [];
 var mainArray = [ch1_array, ch2_array, ch3_array, ch4_array];
-var insertDocuments = function(db, array, callback) {
+var insertDocuments = function(db, data, callback) {
     var collection = db.collection('documents');
     // Insert some documents
-    collection.insertOne({
-        "user": {
-           "name": "Simon",
-           "age": "23",
-           "city": "Paris"
-        },
-        "sessions": {
-          "session_1": {
-            "ch1": array[0],
-            "ch2": array[1],
-            "ch3": array[2],
-            "ch4": array[3]
-          }
-        }
-    }
+    collection.insertOne(data
     , function(err, result) {
       assert.equal(err, null);
       assert.equal(1, result.result.n);
@@ -87,16 +73,16 @@ socket.on("connect", function(){
           MongoClient.connect(url, function(err, db) {
             assert.equal(null, err);
             console.log("Connected successfully to server");
-
-            insertDocuments(db, mainArray, function(){
+            var datajson = {"user": {"name": "Simon", "age": "23", "city": "Paris"}, "sessions": {"session_1": {"ch1": mainArray[0], "ch2": mainArray[1], "ch3": mainArray[2],"ch4": mainArray[3]}}};
+            insertDocuments(db, datajson, function(){
               var collection = db.collection('documents');
                 // Find some documents
-                collection.find({"user.name" : "Simon"}).toArray(function(err, docs) {
-                  assert.equal(err, null);
-                  console.log("Found the following records");
-                  console.log(docs[0].sessions.session_1.ch);
-                  // callback(docs);
-                });
+                // collection.find({"user.name" : "Simon"}).toArray(function(err, docs) {
+                //   assert.equal(err, null);
+                //   console.log("Found the following records");
+                //   console.log(docs[0].sessions.session_1.ch);
+                //   // callback(docs);
+                // });
               db.close();
             });
             // updateDocument(db, function() {
